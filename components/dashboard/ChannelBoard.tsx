@@ -23,13 +23,23 @@ export default function ChannelBoard() {
             <div key={ch.id} className="p-5">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <span
-                    className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm"
+                  <a
+                    href={ch.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm hover:opacity-80 transition-opacity"
                     style={{ backgroundColor: ch.color }}
                   >
                     {ch.icon}
-                  </span>
-                  <span className="font-medium text-gray-800 text-sm">{ch.name}</span>
+                  </a>
+                  <a
+                    href={ch.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-gray-800 text-sm hover:underline"
+                  >
+                    {ch.name}
+                  </a>
                   <span className={cn(
                     'text-xs px-2 py-0.5 rounded-full font-medium',
                     achieved ? 'bg-green-100 text-green-700' : 'bg-red-50 text-red-500'

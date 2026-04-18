@@ -1,23 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, use, useEffect } from 'react'
 import Link from 'next/link'
-import { CHANNELS, getPostsByChannel, getChannelByType, getCurrentWeek } from '@/lib/mock-data'
+import { CHANNELS, getPostsByChannel, getChannelByType, getCurrentWeek, type Post } from '@/lib/mock-data'
+import { loadRegisteredAsPosts, mergeAndSort } from '@/lib/registered-posts'
 import PostTable from '@/components/channel/PostTable'
 import { cn } from '@/lib/utils'
 
 interface Props {
-  params: { channel: string }
+  params: Promise<{ channel: string }>
 }
 
 export default function ChannelPage({ params }: Props) {
+  const { channel } = use(params)
   const { weekNumber } = getCurrentWeek()
   const [weekFilter, setWeekFilter] = useState<'recent4' | 'all'>('recent4')
+  const [allPosts, setAllPosts] = useState<Post[]>([])
 
-  const currentChannel = getChannelByType(params.channel) ?? CHANNELS[0]
-  const posts = getPostsByChannel(currentChannel.id)
+  const currentChannel = getChannelByType(channel) ?? CHANNELS[0]
 
-  const thisWeekPosts = posts.filter(p => p.weekNumber === weekNumber)
+  useEffect(() => {
+    const mockPosts = getPostsByChannel(currentChannel.id)
+    const regPosts = loadRegisteredAsPosts().filter(p => p.channelId === currentChannel.id)
+    setAllPosts(mergeAndSort(mockPosts, regPosts))
+  }, [currentChannel.id])
+
+  const thisWeekPosts = allPosts.filter(p => p.weekNumber === weekNumber)
   const achieved = thisWeekPosts.length >= currentChannel.weeklyTarget
 
   return (
@@ -77,7 +85,7 @@ export default function ChannelPage({ params }: Props) {
 
       <div className="bg-white rounded-xl border border-gray-200 p-5">
         <PostTable
-          posts={posts}
+          posts={allPosts}
           channel={currentChannel}
           weekFilter={weekFilter}
           currentWeek={weekNumber}

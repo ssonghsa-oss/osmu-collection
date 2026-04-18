@@ -7,6 +7,7 @@ export interface Channel {
   icon: string
   color: string
   weeklyTarget: number
+  url: string
 }
 
 export interface Post {
@@ -20,12 +21,12 @@ export interface Post {
 }
 
 export const CHANNELS: Channel[] = [
-  { id: 'ch1', name: 'YouTube',   type: 'youtube',   icon: '▶',  color: '#FF0000', weeklyTarget: 1 },
-  { id: 'ch2', name: 'Instagram', type: 'instagram', icon: '📷', color: '#E1306C', weeklyTarget: 3 },
-  { id: 'ch3', name: 'Brunch',    type: 'brunch',    icon: '✍',  color: '#FFCD00', weeklyTarget: 1 },
-  { id: 'ch4', name: 'Blog',      type: 'blog',      icon: '📝', color: '#03CF5D', weeklyTarget: 2 },
-  { id: 'ch5', name: 'Threads',   type: 'threads',   icon: '🧵', color: '#000000', weeklyTarget: 5 },
-  { id: 'ch6', name: 'LinkedIn',  type: 'linkedin',  icon: '💼', color: '#0A66C2', weeklyTarget: 2 },
+  { id: 'ch2', name: 'Instagram', type: 'instagram', icon: '📷', color: '#E1306C', weeklyTarget: 3, url: 'https://www.instagram.com/hhhssa.song/' },
+  { id: 'ch6', name: 'LinkedIn',  type: 'linkedin',  icon: '💼', color: '#0A66C2', weeklyTarget: 2, url: 'https://www.linkedin.com/feed/' },
+  { id: 'ch1', name: 'YouTube',   type: 'youtube',   icon: '▶',  color: '#FF0000', weeklyTarget: 1, url: 'https://www.youtube.com/?hl=ko&gl=KR&app=desktop' },
+  { id: 'ch4', name: 'Blog',      type: 'blog',      icon: '📝', color: '#03CF5D', weeklyTarget: 2, url: 'https://blog.naver.com/justnopressure' },
+  { id: 'ch3', name: 'Brunch',    type: 'brunch',    icon: '✍',  color: '#FFCD00', weeklyTarget: 1, url: 'https://brunch.co.kr/@seed-uplifter/' },
+  { id: 'ch5', name: 'Threads',   type: 'threads',   icon: '🧵', color: '#000000', weeklyTarget: 5, url: 'https://www.threads.com/@hhhssa.song' },
 ]
 
 function isoWeek(date: Date): number {
@@ -59,6 +60,7 @@ export const POSTS: Post[] = [
   makePost('p12', 'ch2', '일상 브이로그 스틸컷',              'https://instagram.com/p/abc4',    '2026-04-10'),
   makePost('p13', 'ch2', '팔로워 Q&A 답변',                  'https://instagram.com/p/abc5',    '2026-04-12'),
   makePost('p14', 'ch3', '글쓰기가 두려운 당신에게',           'https://brunch.co.kr/@user/12',   '2026-04-09'),
+  makePost('p41', 'ch3', '콘텐츠 크리에이터로 살아가기',       'https://brunch.co.kr/@user/13',   '2026-04-14'),
   makePost('p15', 'ch4', '블로그 SEO 최적화 실전 팁',          'https://blog.naver.com/abc2',     '2026-04-08'),
   makePost('p16', 'ch4', '검색 노출 늘리는 키워드 전략',        'https://blog.naver.com/abc3',     '2026-04-11'),
   makePost('p17', 'ch5', '블로거에서 크리에이터로',            'https://threads.net/@user/abc4',  '2026-04-07'),
